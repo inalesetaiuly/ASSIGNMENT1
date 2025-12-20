@@ -2,7 +2,7 @@ package Airline;
 
 public class Main {
     public static void main(String[] args) {
-        Flight flight1 = new Flight("KC978","Oral","Astana","2025-12-20 17:00", 50,45000.0);
+        Flight flight1 = new Flight("KC978","Oral","Astana","2025-12-20 17:00", 100,45000.0);
         Flight flight2 = new Flight("KC768","Almaty","Dubai","2025-12-25 06:00",30,120000.0);
 
         Passenger passenger1 = new Passenger("P001","INAL YESSETAIULY","KZ432246", "inal.esetaiuly@outlook.com");
@@ -30,7 +30,7 @@ public class Main {
         } else if (flight1.getSeatsAvailable() < flight2.getSeatsAvailable()) {
             System.out.println("Flight " + flight2.getFlightNumber() + " has more available seats than " + flight1.getFlightNumber());
         } else {
-            System.out.println("Flights " + flight1.getFlightNumber() + " and " + flight2.getFlightNumber() + " have the same number of available seats.");
+            System.out.println("Flights " + flight1.getFlightNumber() + " and " + flight2.getFlightNumber() + " have the same number of seats.");
         }
 
     }
