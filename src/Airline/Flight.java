@@ -1,4 +1,5 @@
 package Airline;
+import java.util.Objects;
 
 public class Flight {
     private String flightNumber;
@@ -66,7 +67,6 @@ public class Flight {
         this.price = price;
     }
 
-
     @Override
     public String toString() {
         return "Flight{" +
@@ -77,5 +77,17 @@ public class Flight {
                 ", seatsAvailable=" + seatsAvailable +
                 ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Flight)) return false;
+        Flight flight = (Flight) o;
+        return Objects.equals(flightNumber, flight.flightNumber);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(flightNumber);
     }
 }

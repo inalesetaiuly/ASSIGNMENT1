@@ -1,37 +1,79 @@
 package Airline;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Flight flight1 = new Flight("KC978","Oral","Astana","2025-12-20 17:00", 100,45000.0);
-        Flight flight2 = new Flight("KC768","Almaty","Dubai","2025-12-25 06:00",30,120000.0);
+        Scanner sc = new Scanner(System.in);
 
-        Passenger passenger1 = new Passenger("P001","INAL YESSETAIULY","KZ432246", "inal.esetaiuly@outlook.com");
-        Passenger passenger2= new Passenger("P002","ALY AKILBEK","KZ502661","akylbekali@gmail.com");
+        List<Person> people = new ArrayList<>();
+        people.add(new Passenger("P1","Inal","KZ123","inal.esetajuli@mail.ru"));
+        people.add(new Staff("S1","Manager","Stay"));
 
-        Booking booking1 = new Booking("B001", flight1, passenger1,"24A","CONFIRMED");
-        Booking booking2 = new Booking("B002", flight2, passenger2,"12C","PENDING");
+        List<Flight> flights = new ArrayList<>();
 
-        System.out.println("Flights=");
-        System.out.println(flight1);
-        System.out.println(flight2);
+        System.out.println("Create 2 flights:");
+        for(int i = 0; i < 2; i++){
+            System.out.println("Flight Number: ");
+            String fn=sc.nextLine();
 
-        System.out.println("\n Passengers=");
-        System.out.println(passenger1);
-        System.out.println(passenger2);
+            System.out.println("Origin: ");
+            String origin = sc.nextLine();
 
-        System.out.println("\n Booking=");
-        System.out.println(booking1);
-        System.out.println(booking2);
+            System.out.println("Destination: ");
+            String dest = sc.nextLine();
 
-        System.out.println("\n Comparison=");
+            System.out.println("Departure Time: ");
+            String time = sc.nextLine();
 
-        if (flight1.getSeatsAvailable() > flight2.getSeatsAvailable()) {
-            System.out.println("Flight " + flight1.getFlightNumber() + " has more available seats than " + flight2.getFlightNumber());
-        } else if (flight1.getSeatsAvailable() < flight2.getSeatsAvailable()) {
-            System.out.println("Flight " + flight2.getFlightNumber() + " has more available seats than " + flight1.getFlightNumber());
-        } else {
-            System.out.println("Flights " + flight1.getFlightNumber() + " and " + flight2.getFlightNumber() + " have the same number of seats.");
+            System.out.println("Seats Available: ");
+            int seats = Integer.parseInt(sc.nextLine());
+
+            System.out.println("Price: ");
+            double price = Double.parseDouble(sc.nextLine());
+
+            flights.add(new Flight(fn,origin,dest,time,seats,price));
+            System.out.println();
+
+            System.out.println("\nPEOPLE:");
+            for( Person p: people) {
+                System.out.println(p);
+            }
+            System.out.println("\nFLIGHTS:");
+            for( Flight f: flights) {
+                System.out.println(f);
+            }
+
+            System.out.print("\nSearch flight by number: ");
+            String search = sc.nextLine();
+            for (Flight f: flights) {
+                if (f.getFlightNumber().equalsIgnoreCase(search)) {
+                    System.out.println("Found: + f");
+                }
+            }
+            System.out.print("\\nFilter by destination: ");
+            String filterDest = sc.nextLine();
+            for (Flight f: flights) {
+                if (f.getDestination().equalsIgnoreCase(filterDest)) {
+                    System.out.println(f);
+                }
+            }
+            flights.sort(Comparator.comparingDouble(Flight::getPrice));
+            System.out.println("\nSorted by price");
+            for (Flight f: flights) {
+                System.out.println(f);
+            }
         }
-
+        if (!flights.isEmpty()) {
+            Flight copy = new Flight(
+                    flights.get(0).getFlightNumber(),
+                    "X", "Y", "time", 0, 0
+            );
+            System.out.println("\nEquals demo:");
+            System.out.println(flights.get(0).equals(copy));
+        }
     }
 }
